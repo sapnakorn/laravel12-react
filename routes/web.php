@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Product;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -46,3 +47,76 @@ Route::get('/bootstrap', function () {
     return Inertia::render('BootstrapContent');
 })->name('bootstrap');
 
+
+//routes/web.php
+Route::get('/circle', function () {
+    return Inertia::render('Circle');
+})->name('circle');
+
+
+
+//routes/web.php
+Route::get('/counter', function () {
+    return Inertia::render('Counter');
+})->name('counter');
+
+
+
+//routes/web.php
+Route::get('/form-example', function () {
+    return Inertia::render('FormExample');
+})->name('form-example');
+
+
+
+//routes/web.php
+Route::get('/list-manager', function () {
+    return Inertia::render('ListManager');
+})->name('list-manager');
+
+
+
+//routes/web.php
+Route::get('/infinite-scroll', function () {
+    return Inertia::render('InfiniteScrollExample');
+})->name('infinite-scroll');
+
+
+Route::get('/bookmarks', function () {
+    return Inertia::render('Bookmarks/Index');
+
+
+});
+
+
+
+// routes/web.php
+// use App\Models\Product;
+Route::get('/product', function () {
+    $products = Product::all();
+    return Inertia::render('ProductList', compact('products') );
+})->name('product');
+
+
+
+
+// routes/web.php
+Route::get('/product-others', function () {
+    return Inertia::render('ProductOthers');
+})->name('product-others');
+
+
+Route::get('/product', function () {
+    $products = Product::all(); // Fetch all products
+    return response()->json($products); // Return as JSON
+});
+
+
+// routes/web.php
+use App\Models\GraphicCard;
+Route::get('/quiz4', function () {
+    // ดึงข้อมูลทั้งหมด และส่งไปให้ React ผ่านตัวแปรชื่อ 'gpus'
+    return Inertia::render('Quiz4', [
+        'gpus' => GraphicCard::all()
+    ]); 
+});
