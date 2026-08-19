@@ -9,6 +9,10 @@ class GraphicCardSeeder extends Seeder
 {
     public function run(): void
     {
+        if (DB::table('graphic_cards')->exists()) {
+            return;
+        }
+
         DB::table('graphic_cards')->insert([
             [
                 'model_name'   => 'NVIDIA GeForce RTX 4090',
