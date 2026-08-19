@@ -120,3 +120,32 @@ Route::get('/quiz4', function () {
         'gpus' => GraphicCard::all()
     ]); 
 });
+
+
+
+
+
+
+Route::get('/product-manager', function () {
+    $p = Product::all();
+    return Inertia::render('ProductManager', compact('p'));
+})->name('product-manager');
+
+
+
+
+
+
+
+
+
+
+
+Route::get('/product/create', function () {
+    return Inertia::render('ProductForm');
+})->name('product.create');
+
+Route::get('/product/{id}/edit', function ($id) {
+    $product = Product::findOrFail($id);
+    return Inertia::render('ProductForm', compact('product'));
+})->name('product.edit');
