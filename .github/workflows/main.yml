@@ -23,6 +23,6 @@ jobs:
           composer install --no-interaction
           npm install
           npm run build
-          php artisan migrate:fresh --force
+          php artisan migrate:fresh --force --seed
 
 # end
