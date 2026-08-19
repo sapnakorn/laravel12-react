@@ -1,30 +1,30 @@
 name: Deploy to Laravel Server
-
 on:
   push:
     branches:
-      - main  # หรือ branch ที่ต้องการ
-
+      
+main  # หรือ branch ที่ต้องการ
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+    
+name: Checkout code
+    uses: actions/checkout@v4
+name: Deploy via SSH
+  uses: appleboy/ssh-action@v1.0.0
+  with:
+    host: ${{ secrets.SSH_HOST }}
+    username: ${{ secrets.SSH_USER }}
+    key: ${{ secrets.SSH_PRIVATE_KEY }}
+    script_stop: true
+    script: |
+      cd /var/www/bro.csbootstrap.com/laravel12-react
+      git fetch origin main
+      git reset --hard origin/main
+      composer install --no-interaction
+      npm install
+      npm run build
+      php artisan migrate --force
 
-    - name: Deploy via SSH
-      uses: appleboy/ssh-action@v1.0.0
-      with:
-        host: ${{ secrets.SSH_HOST }}
-        username: ${{ secrets.SSH_USER }}
-        key: ${{ secrets.SSH_PRIVATE_KEY }}
-        script: |
-          cd /var/www/Bro.csbootstrap.com/laravel12-react
-          git pull origin main
-          composer install --no-interaction
-          npm install
-          npm run build
-          php artisan migrate
-          
-# end
+#end
