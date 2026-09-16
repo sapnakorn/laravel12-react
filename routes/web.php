@@ -149,3 +149,38 @@ Route::get('/product/{id}/edit', function ($id) {
     $product = Product::findOrFail($id);
     return Inertia::render('ProductForm', compact('product'));
 })->name('product.edit');
+
+
+
+
+
+
+
+
+
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/teacher', function () {
+        return Inertia::render('HelloTeacher');
+    });
+});
+// หรือ
+Route::get('/teacher', function () {
+    return Inertia::render('HelloTeacher');
+})->middleware('auth') ;
+
+
+
+
+
+Route::middleware(['auth','role:admin,teacher'])->group(function () {
+    Route::get('/teacher', function () {
+        return Inertia::render('teacher');
+    });
+});
+// หรือ
+Route::get('/teacher', function () {
+    return Inertia::render('teacher/index');
+})->middleware('auth','role:admin,teacher') ;
+
